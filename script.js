@@ -14,12 +14,14 @@ function formatQueryParams(params) {
 function getNationalParks(query, limit = 10) {
     console.log("getnationalPark function working");
     const params = {
-        stateCode: query,
+        q: query,
         limit,
         api_key: apiKey
     };
     const queryString = formatQueryParams(params)
     const url = searchURL + '?' + queryString;
+
+    console.log(url);
 
     fetch(url)
     .then(response => {
@@ -41,8 +43,8 @@ function displayResults(responseJson) {
     for (let i = 0; i < responseJson.data.length; i++){
         $('#results-list').append(
             `<li><h3>${responseJson.data[i].fullName}</h3>
-            <p>${reponseJson.data[i].description}</p>
-            <a href="${responseJson.data[i].url}">Go To Park's Website</a>
+            <p>${responseJson.data[i].description}</p>
+            <a href="${responseJson.data[i].url}" target="_blank">Go To Park's Website</a>
             </li>`
         );
     }
